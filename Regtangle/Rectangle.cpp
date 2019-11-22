@@ -97,7 +97,7 @@ Point * Rectangle::setAllPoint(Point point1, Point point2) {
 }
 
 // Function to calculate parameter of triangle
-int Rectangle::parameter() {
+int Rectangle::perimeter() {
 	// Caculate width by taking absolute value of x2 - x1 
 	int rectangleWidth = std::abs(point2.getX() - point1.getX()); 
 	// Calculate length by taking absolute value of y2 - y1
@@ -105,6 +105,17 @@ int Rectangle::parameter() {
 	// Calculate perimeter by taking (width + length) * 2
 	int perimeter = (rectangleWidth + rectangleLength) * 2;
 	return perimeter;
+}
+
+// Function to calculate area of rectangle
+int Rectangle::area() {
+	// Caculate width by taking absolute value of x2 - x1 
+	int rectangleWidth = std::abs(point2.getX() - point1.getX());
+	// Calculate length by taking absolute value of y2 - y1
+	int rectangleLength = std::abs(point2.getY() - point1.getY());
+	// Calculate perimeter by taking (width + length) * 2
+	int area = rectangleWidth * rectangleLength;
+	return area;
 }
 
 // output operator 
@@ -124,7 +135,7 @@ std::ostream& operator << (std::ostream& output, Rectangle rectangle) {
 			output << ", ";
 		}
 	}
-	output << ") \n";
-	output << "Rect1's perimeter is " << rectangle.parameter(); 
+	output << " ) \n";
+	output << "Rect1's area is " << rectangle.area() << " and perimeter is " << rectangle.perimeter(); 
 	return output;
 }

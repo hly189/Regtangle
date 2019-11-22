@@ -83,8 +83,11 @@ public:
 	// Function to set up all 4 point of rectangle 
 	Point* setAllPoint(Point point1, Point point2); 
 
-	// Function to calculate parameter of rectangle
-	int parameter(); 
+	// Function to calculate perimeter of rectangle
+	int perimeter();
+
+	// Function to calculate area of rectangle
+	int area();
 };
 
 

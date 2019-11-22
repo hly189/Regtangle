@@ -10,7 +10,6 @@ int main()
 	Point point1 = Point(5, 3); 
 	Point point2 = Point(8, 10); 
 	Rectangle rectangle1 = Rectangle(point1, point2);
-	int size = rectangle1.parameter();
 
 	std::cout << rectangle1 << std::endl; 
 }
