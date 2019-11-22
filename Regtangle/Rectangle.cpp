@@ -98,14 +98,33 @@ Point * Rectangle::setAllPoint(Point point1, Point point2) {
 
 // Function to calculate parameter of triangle
 int Rectangle::parameter() {
-	int rectangleSide1 = std::abs(point2.getX() - point1.getX()); 
-	int rectangleSide2 = std::abs(point2.getY() - point1.getY()); 
-	int perimeter = (rectangleSide1 + rectangleSide2) * 2; 
+	// Caculate width by taking absolute value of x2 - x1 
+	int rectangleWidth = std::abs(point2.getX() - point1.getX()); 
+	// Calculate length by taking absolute value of y2 - y1
+	int rectangleLength = std::abs(point2.getY() - point1.getY());
+	// Calculate perimeter by taking (width + length) * 2
+	int perimeter = (rectangleWidth + rectangleLength) * 2;
 	return perimeter;
 }
 
 // output operator 
 std::ostream& operator << (std::ostream& output, Rectangle rectangle) {
+	// Get point object from Rectangle Class 
+	Point point1 = rectangle.getPoint1(); 
+	Point point2 = rectangle.getPoint2();
+	// Get array which contains all 4 corners
+	Point * arrayPoint = rectangle.setAllPoint(point1, point2); 
+
+	// Loop through object and print out each corner
+	output << "Rect1's four corners are at ( "; 
+	for (int i = 0; i < 4; i++) {
+		output << "(" << arrayPoint[i].getX() << ", " << arrayPoint[i].getY() << ")";
+		// If index less than last element, then add comma
+		if (i != 3) {
+			output << ", ";
+		}
+	}
+	output << ") \n";
 	output << "Rect1's perimeter is " << rectangle.parameter(); 
 	return output;
 }
