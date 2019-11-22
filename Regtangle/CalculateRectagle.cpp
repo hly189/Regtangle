@@ -12,7 +12,7 @@ int main()
 	Rectangle rectangle1 = Rectangle(point1, point2);
 	int size = rectangle1.parameter();
 
-	std::cout << "This is size " << size << std::endl;
+	std::cout << rectangle1 << std::endl; 
 }
 
 // Run program: Ctrl + F5 or Debug > Start Without Debugging menu

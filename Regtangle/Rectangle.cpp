@@ -103,3 +103,9 @@ int Rectangle::parameter() {
 	int perimeter = (rectangleSide1 + rectangleSide2) * 2; 
 	return perimeter;
 }
+
+// output operator 
+std::ostream& operator << (std::ostream& output, Rectangle rectangle) {
+	output << "Rect1's perimeter is " << rectangle.parameter(); 
+	return output;
+}

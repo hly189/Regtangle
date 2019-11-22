@@ -66,7 +66,7 @@ public:
 	// Overload operator
 	
 	// output operator 
-	friend std::ostream& operator << (std::ostream& output, const Rectangle &R);
+	friend std::ostream& operator << (std::ostream& output, Rectangle R);
 
 	// input operator 
 	friend std::istream& operator >> (std::istream& output, const Rectangle &R);
