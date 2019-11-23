@@ -4,7 +4,10 @@
 
 // Point class
 // Default constructor for initialzing 
-Point::Point() {}; 
+Point::Point() {
+	x = 0; 
+	y = 0;
+}; 
 
 // Constructor for taking parameter 
 Point::Point(int thisX, int thisY) {
@@ -119,7 +122,7 @@ int Rectangle::area() {
 }
 
 // output operator 
-std::ostream& operator << (std::ostream& output, Rectangle rectangle) {
+std::ostream& operator << (std::ostream& output, Rectangle &rectangle) {
 	// Get point object from Rectangle Class 
 	Point point1 = rectangle.getPoint1(); 
 	Point point2 = rectangle.getPoint2();
@@ -130,12 +133,127 @@ std::ostream& operator << (std::ostream& output, Rectangle rectangle) {
 	output << "Rect1's four corners are at ( "; 
 	for (int i = 0; i < 4; i++) {
 		output << "(" << arrayPoint[i].getX() << ", " << arrayPoint[i].getY() << ")";
-		// If index less than last element, then add comma
+		// If index is not index of last element, then add comma
 		if (i != 3) {
 			output << ", ";
 		}
 	}
 	output << " ) \n";
-	output << "Rect1's area is " << rectangle.area() << " and perimeter is " << rectangle.perimeter(); 
+	output << "Rect1's area is " << rectangle.area() << " and perimeter is " << rectangle.perimeter()
+		<< std::endl;
 	return output;
 }
+
+// input operator
+std::istream & operator>>(std::istream &input, Rectangle &r){
+	// Get point 1 and point 2 object
+	Point point1 = r.getPoint1(); 
+	Point point2 = r.getPoint2();
+
+	// Input x1,y1,x2,y2
+	std::cout << "Enter x1: "; 
+	input >> point1.x;
+	std::cout << "Enter y1: "; 
+	input >> point1.y; 
+	std::cout << "Enter x2: ";
+	input >> point2.x;
+	std::cout << "Enter y2: ";
+	input >> point2.y;
+
+	// Set new point1 and point2 
+	r.setPoint1(point1); 
+	r.setPoint2(point2);
+	return input;
+}
+
+
+
+// Addition overload 
+// it will add point 1 and 2 of both rectangle 
+// and return new rectangle
+Rectangle Rectangle::operator+(Rectangle obj) {
+	// Declare new Rectangle Object 
+	Rectangle newRectangle; 
+	// Get Point1 of obj 
+	Point objPoint1 = obj.getPoint1();
+
+	// Get Point 2 of obj 
+	Point objPoint2 = obj.getPoint2();
+
+	// Add 2 point1 of rectangle and obj together
+	Point newPoint1 = Point(point1.getX() + objPoint1.getX(), point1.getY() + objPoint1.getY()); 
+	newRectangle.setPoint1(newPoint1); 
+
+	// Add 2 point2 of rectangle and obj together
+	Point newPoint2 = Point(point2.getX() + objPoint2.getX(), point2.getY() + objPoint2.getY());
+	newRectangle.setPoint2(newPoint2);
+
+	// Return new rectangle
+	return newRectangle; 
+}
+
+// Subtraction overload
+// If 2 rectangle overlap, it will subtract point 1 and 2 
+// of 2 rectangle and return new rectangle with 2 new points 
+// otherwise, it will return 0
+Rectangle operator-(Rectangle obj1, Rectangle obj2)
+{
+	// Declare new rectangle 
+	Rectangle newRectangle; 
+
+	// Initialzie 2 new point 1 and 2 for new rectangle
+	Point newPoint1, newPoint2; 
+
+	// Checking if 2 rectangle overlaps by calling function isOverLap
+	// it will return false if no overlap, otherwise return true 
+	bool checkingOverLap = isOverLap(obj1, obj2); 
+	
+	// if it's false, point 1 and 2 of rectangle would be (0,0); 
+	if (checkingOverLap == false) {
+		newPoint1 = Point(0, 0); 
+		newPoint2 = Point(0, 0);
+		newRectangle = Rectangle(newPoint1, newPoint2);
+	}
+	else {
+		// get point 1 and point 2 of obj1
+		Point point1 = obj1.getPoint1();
+		Point point2 = obj1.getPoint2();
+
+		// get point 1 and point 2 of obj2
+		Point otherPoint1 = obj2.getPoint1();
+		Point otherPoint2 = obj2.getPoint2();
+
+		// Subtract coordinator of point1 of  obj1 and obj2
+		newPoint1 = Point(point1.getX() - otherPoint1.getX(), point1.getY() - otherPoint1.getY());
+		newRectangle.setPoint1(newPoint1);
+
+		// Subtract coordinator of point2 of  obj1 and obj2
+		newPoint2 = Point(point2.getX() - otherPoint2.getX(), point2.getY() - otherPoint2.getY());
+		newRectangle.setPoint1(newPoint2);
+	}
+
+	return newRectangle;
+}
+
+// Function to check overlab rectangle 
+// Returns true if two rectangles (point1, point2) and (otherPoint1, otherPoint2) overlap
+bool isOverLap(Rectangle rectangle1, Rectangle rectangle2) {
+	
+	// get point 1 and point 2 of rectangle1 
+	Point l1 = rectangle1.getPoint1();
+	Point r1 = rectangle1.getPoint2();
+
+	// get point 1 and point 2 of rectangle2
+	Point l2 = rectangle2.getPoint1();
+	Point r2 = rectangle2.getPoint2();
+
+	// If one rectangle is on left side of other 
+	if (l1.getX() > r2.getX() || l2.getX() > r2.getX())
+		return false;
+	//If one rectangle is above other 
+	if (l1.getY() < r2.getY() || l2.getY() < r2.getY())
+		return false; 
+	// default return true 
+	return true;
+}
+

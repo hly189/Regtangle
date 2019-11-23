@@ -3,15 +3,42 @@
 
 #include "pch.h"
 #include <iostream>
+#include <string>
 #include "Rectangle.h"
 
 int main()
 {
-	Point point1 = Point(5, 3); 
-	Point point2 = Point(8, 10); 
-	Rectangle rectangle1 = Rectangle(point1, point2);
+	std::string answer; 
+	do {
+		Rectangle rectangle1, rectangle2, rectanle3, rectangle4; 
+		// Input and output for rectangle 1 
+		std::cout << "Infor for fitst rectangle: " << std::endl; 
+		std::cin >> rectangle1; 
+		std::cout << rectangle1; 
+		std::cout << std::endl; 
+		
+		//Input and output rectangle 2
+		std::cout << "Infor for second rectangle: " << std::endl;
+		std::cin >> rectangle2;
+		std::cout << rectangle2;
+		std::cout << std::endl;
+		
+		// Addiition both rectangle 1 and 2. Then output 
+		rectanle3 = rectangle1 + rectangle2; 
+		std::cout << rectanle3; 
+		std::cout << std::endl;
 
-	std::cout << rectangle1 << std::endl; 
+		// Subtraction both rectangle 1 and 2. Then output 
+		rectangle4 = rectangle2 - rectangle1;
+		std::cout << rectangle4;
+		std::cout << std::endl;
+		std::cin.ignore(); 
+
+		// Asking user to continue or not
+		std::cout << "Do you want to continue (y/n): "; 
+		getline(std::cin, answer); 
+	} while (answer != "n"); 
+
 }
 
 // Run program: Ctrl + F5 or Debug > Start Without Debugging menu

@@ -3,33 +3,32 @@
 #include <iostream>
 
 // Small class to store point (x, y)
-class Point {
-private: 
+struct Point {
 	// initialize x and y
 	int x, y; 
-public: 
-		// Default constructor for initialzing 
-		Point(); 
+		
+	// Default constructor for initialzing 
+	Point(); 
+		
+	// Constructor to take parameter
+	Point(int thisX, int thisY); 
 
-		// Constructor to take parameter
-		Point(int thisX, int thisY); 
+	// Destructor 
+	~Point(); 
 
-		// Destructor 
-		~Point(); 
+	// Accessor 
+	// return x value 
+	int getX(); 
 
-		// Accessor 
-		// return x value 
-		int getX(); 
+	// return y value
+	int getY(); 
 
-		// return y value
-		int getY(); 
+	// Mutator 
+	// set x value
+	void setX(int x); 
 
-		// Mutator 
-		// set x value
-		void setX(int x); 
-
-		// set y value
-		void setY(int y); 
+	// set y value
+	void setY(int y); 
 };
 
 
@@ -66,19 +65,19 @@ public:
 	// Overload operator
 	
 	// output operator 
-	friend std::ostream& operator << (std::ostream& output, Rectangle R);
+	friend std::ostream& operator << (std::ostream& output, Rectangle &R);
 
 	// input operator 
-	friend std::istream& operator >> (std::istream& output, const Rectangle &R);
+	friend std::istream& operator >> (std::istream& output, Rectangle &r);
 
 	// Addition operator +
-	Rectangle operator + (Rectangle const &obj);
+	Rectangle operator + (Rectangle obj);
 
 	// Substraction operator - 
-	Rectangle operator - (Rectangle const &obj); 
+	friend Rectangle operator - (Rectangle obj1, Rectangle obj2); 
 
 	// Function to check overlab rectangle 
-	bool isOverLap(Rectangle otherRectangle);
+	friend bool isOverLap(Rectangle rectangle1, Rectangle rectangle2);
 
 	// Function to set up all 4 point of rectangle 
 	Point* setAllPoint(Point point1, Point point2); 
