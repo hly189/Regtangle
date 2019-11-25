@@ -1,93 +1,65 @@
 #ifndef Rectangle_h
 #define Rectangle_h
 #include <iostream>
+#include <string>
 
-// Small class to store point (x, y)
-struct Point {
-	// initialize x and y
-	int x, y; 
-		
-	// Default constructor for initialzing 
-	Point(); 
-		
-	// Constructor to take parameter
-	Point(int thisX, int thisY); 
+struct Point
+{ //Use struct to have global access
+	double x, y;
+	Point(); //default constrcutor for initiallization
+	Point(double getX, double getY); // Constructor to take parameters
+	~Point(); //default destructor to remove objects after done
 
-	// Destructor 
-	~Point(); 
+	//Accessor
+	double getX();
+	double getY();
 
-	// Accessor 
-	// return x value 
-	int getX(); 
-
-	// return y value
-	int getY(); 
-
-	// Mutator 
-	// set x value
-	void setX(int x); 
-
-	// set y value
-	void setY(int y); 
+	//Mutator
+	void setX(double x);
+	void setY(double y);
 };
 
-
-// Define class rectangle
-class Rectangle {
+class Rectangle
+{
 private:
-	// initialize varibale for 2 point 
-	Point point1, point2; 
-	
-public: 
-	// Initialize constructor 
-	Rectangle(); 
+	Point point1, point3; //rectangle class has two points: point1, point2 of data type Point
+protected: 
+	std::string name;
+public:
+	Rectangle(); // Default constructor
+	Rectangle(Point, Point, std::string); // Constructor that takes parameters
+	~Rectangle(); //Default destructor
 
-	// Constructor with parameter 
-	Rectangle(Point thisPoint1, Point thisPoint2); 
+	 //Accessor
+	Point getP1();
+	Point getP3();
+	std::string getName();
 
-	// Destructor 
-	~Rectangle(); 
+	//Mutator
+	void setP1(Point point1);
+	void setP3(Point point3);
+	void setName(std::string);
 
-	// Accessor
-	// Get point 1 
-	Point getPoint1();
+	//Function
+	//1. Get rectangle 4 corners
+	Point * getCorners(Point, Point);
+	//3. Get perimeter
+	double perimeter();
+	//4. Get area
+	double area();
 
-	// Get point 2
-	Point getPoint2(); 
+	//Overload operator
+	//1.Input
+	friend std::istream & operator>>(std::istream&, Rectangle&);
 
-	// Mutator 
-	// set point 1 
-	void setPoint1(Point point1); 
-	
-	// set Point 2
-	void setPoint2(Point point2);
+	//2.Output
+	friend std::ostream & operator << (std::ostream&, Rectangle&);
 
-	// Overload operator
-	
-	// output operator 
-	friend std::ostream& operator << (std::ostream& output, Rectangle &R);
+	//3.Add
+     Rectangle operator+ (Rectangle&);
 
-	// input operator 
-	friend std::istream& operator >> (std::istream& output, Rectangle &r);
-
-	// Addition operator +
-	Rectangle operator + (Rectangle obj);
-
-	// Substraction operator - 
-	friend Rectangle operator - (Rectangle obj1, Rectangle obj2); 
-
-	// Function to check overlab rectangle 
-	friend bool isOverLap(Rectangle rectangle1, Rectangle rectangle2);
-
-	// Function to set up all 4 point of rectangle 
-	Point* setAllPoint(Point point1, Point point2); 
-
-	// Function to calculate perimeter of rectangle
-	int perimeter();
-
-	// Function to calculate area of rectangle
-	int area();
+	//4. Substraction
+	friend Rectangle operator- (Rectangle&, Rectangle&);
 };
 
-
-#endif
+#endif /* Rectangle_hpp */
