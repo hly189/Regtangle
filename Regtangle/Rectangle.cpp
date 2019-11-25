@@ -31,10 +31,10 @@ void Point::setY(double yP) { y = yP; }
 //Constructor/Destructor definition
 //Constructor
 Rectangle::Rectangle() {};
-Rectangle::Rectangle(Point thisP1, Point thisP3, std::string thisName)
+Rectangle::Rectangle(Point thisPoint1, Point thisPoint3, std::string thisName)
 {
-	point1 = thisP1;
-	point3 = thisP3;
+	point1 = thisPoint1; 
+	point3 = thisPoint3;
 	name = thisName;
 }
 //Destructor
@@ -170,32 +170,43 @@ std::ostream& operator << (std::ostream& output, Rectangle &rectangle)
 }
 
 //3.Add
-	// Addition operator +
-/*Rectangle Rectangle::operator+ (Rectangle obj1, Rectangle obj2)
+Rectangle Rectangle::operator+ (Rectangle &obj1)
 {
 	// Declare new Rectangle Object
 	Rectangle newRectangle;
 	// Get Point1 and Point2 of obj1
-	Point objPoint1 = obj1.getPoint1();
-	Point objPoint2 = obj1.getPoint2();
-	// Get Point1 and Point2 of obj2
-	Point objPoint1 = obj2.getPoint1();
-	Point objPoint2 = obj2.getPoint2();
+	Point objPoint1 = obj1.getP1();
+	Point objPoint2 = obj1.getP3();
 
 	// Determine the new set of (x1,y1), (x2,y2) for the new rectangle
-	Point newX1, newX2, newY1, newY2;
-	if (objPoint1.getX() < objPoint2.getX())
-	Point newPoint1 = Point(point1.getX() + objPoint1.getX(), point1.getY() + objPoint1.getY());
-	newRectangle.setPoint1(newPoint1);
+	int newX1, newX2, newY1, newY2;
+	if (point1.getX() < objPoint1.getX())
+	{
+		newX1 = point1.getX();
+	}
+	else
+	{
+		newX1 = objPoint1.getX();
+	}
+	if (point1.getY() < objPoint1.getY())
+		newY1 = point1.getY();
+	else
+		newY1 = objPoint1.getY();
 
-	// Add 2 point2 of rectangle and obj together
-	Point newPoint2 = Point(point2.getX() + objPoint2.getX(), point2.getY() + objPoint2.getY());
-	newRectangle.setPoint2(newPoint2);
+	Point newPoint1 = Point(newX1, newY1);
+	newRectangle.setP1(newPoint1);
 
-	// Return new rectangle
+	if (point3.getX() < objPoint2.getX())
+		newX2 = objPoint2.getX();
+	else
+		newX2 = point3.getX();
+	if (point3.getY() < objPoint2.getY())
+		newY2 = objPoint2.getY();
+	else
+		newY2 = point3.getY();
+
+	Point newPoint2 = Point(newX2, newY2);
+	newRectangle.setP3(newPoint2);
 	return newRectangle;
 }
 
-
-//4.Subtract
-	Rectangle operator- (Rectangle& obj1, Rectangle& obj2);*/
